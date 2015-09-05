@@ -76,27 +76,45 @@ function initialize(firstTime) {
 		$amUrlField = $('input#url').on('blur', trimField);
 		$amBlurbField = $('textarea#blurb').on('blur', trimField);
 		$amSharedField = $('input#shared');
-		$amUnreadField = $('input#toread');
+		$amUnreadField = $('input#toread').on('keydown', function (evt) {
+			if (evt.which == 9) {
+				evt.preventDefault();
+				$(this).one('keyup', function (evt2) {
+					evt2.preventDefault();
+					$amTagsField.select2('focus');
+				});
+			}
+		});
 		$amTagsField = $('input#tags').select2({
 			tags        : [],
 			openOnEnter : false, 
 			width       : '100%'
 		});
 		$('button#cancel').on('keydown', function (evt) {
-			evt.preventDefault();
-			$(this).one('keyup', function (evt2) {
-				if (evt2.which == 9) {
+			if (evt.which == 9) {
+				evt.preventDefault();
+				$(this).one('keyup', function (evt2) {
+					evt2.preventDefault();
 					$amTitleField.focus();
-				}
-			});
+				});
+			}
 		});
+		$(document).on('keydown', '.select2-input', function (evt) {
+			if (evt.which == 9) {
+				evt.preventDefault();
+				$(this).one('keyup', function (evt2) {
+					evt2.preventDefault();
+					$('button#submit').focus();
+				});
+			}
+		});
+		$(document).on('keypress', 'input', handleAddMarkKeyPress);
 		$(document).on('keydown', function (evt) {
 			if (evt.which == 27) {
 				goAway(true);
 				return false;
 			}
 		});
-		$(document).on('keypress', 'input', handleAddMarkKeyPress);
 	} else {
 		if (sa.activeBrowserWindow.activeTab.page) {
 			var existingBookmark = _.findWhere(gw.bookmarks, { url: sa.activeBrowserWindow.activeTab.url });
@@ -118,7 +136,7 @@ function initialize(firstTime) {
 	}
 }
 function populateForm() {
-	$amTitleField.val(popover ? sa.activeBrowserWindow.activeTab.title : settings.pageTitle).select();
+	$amTitleField.val(popover ? sa.activeBrowserWindow.activeTab.title : settings.pageTitle);
 	$amUrlField.val(popover ? sa.activeBrowserWindow.activeTab.url : settings.pageUrl).prop('disabled', false);
 	$amBlurbField.val('');
 	$amSharedField.prop('checked', settings.addShared);
@@ -133,7 +151,7 @@ function populateFormFromExistingBookmark(bookmark) {
 	$amUnreadField.prop('checked', settings.addAsUnread);
 	$('#options').toggle(_.intersection(settings.abmServices, ['pinboard','delicious']).length > 0);
 	$(window).one('tagsfilled', function () {
-		$amTagsField.select2('val', bookmark.tags);
+		$amTagsField.select2('val', bookmark.tags).select2('focus');
 	});
 }
 function populateTagMenu(tagData) {
@@ -149,7 +167,7 @@ function populateTagMenu(tagData) {
 		tokenSeparators : [','],
 		openOnEnter     : false,
 		width           : '100%'
-	}).select2('val', '');
+	}).select2('val', '').select2('focus');
 	safari.self.height = document.body.offsetHeight + 40;
 	$(window).trigger('tagsfilled');
 }
