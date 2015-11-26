@@ -152,17 +152,10 @@ function deleteCachedFavicons() {
 function doXHR(method, url, data, contentType, successHandler, errorHandler, timeout) {
 	var timerID = Math.random().toString().slice(2);
 	var xhr = new XMLHttpRequest();
-	// var waiting = setTimeout(function () {
-	// 	waiting = null;
-	// 	waitingButton = animateButton(getMainButtonForActiveWindow(), timerID, true);
-	// }, 2000);
 	var timeouter = setTimeout(function () {
 		console.log('xhr timed out');
 		timeouter = null;
 		xhr.abort();
-		// if (waitingButton) {
-		// 	waitingButton = animateButton(waitingButton, timerID, false);
-		// }
 		if (errorHandler) {
 			errorHandler(xhr);
 		} else {
@@ -173,13 +166,6 @@ function doXHR(method, url, data, contentType, successHandler, errorHandler, tim
 		if (this.readyState === 4) {
 			console.log('Response:', this);
 			clearTimeout(timeouter);
-			// if (waiting) {
-			// 	clearTimeout(waiting);
-			// 	waiting = null;
-			// 	if (waitingButton) {
-			// 		waitingButton = animateButton(waitingButton, timerID, false);
-			// 	}
-			// }
 			if (this.status >= 200 && this.status < 300) {
 				if (successHandler) {
 					successHandler(this);
@@ -240,11 +226,13 @@ function getAllBookmarks(service, callback) {
 			processKipptClips(JSON.parse(res.responseText), false, callback);
 		};
 		errorHandler = function (response) {
-			bookmarks = false;
+			// bookmarks = false;
 			var notice = 'Cloudmarks encountered an error while accessing your ' 
 			    + SERVICES[service].name + ' account. The error message was:\n\n"' 
 			    + response.responseText + '"';
 			alert(notice);
+			var lb = localStorage.getItem('bookmarks');
+			bookmarks = lb ? JSON.parse(lb) : [];
 		};
 	} else {
 		successHandler = function (res) {
@@ -270,7 +258,7 @@ function getAllBookmarks(service, callback) {
 		};
 		errorHandler = function (response) {
 			var notice;
-			bookmarks = false;
+			// bookmarks = false;
 			if (response.status == 0) {
 				notice = 'The ' + SERVICES[service].name +
 					' API server does not seem to be available. Please try again later.';
@@ -279,7 +267,10 @@ function getAllBookmarks(service, callback) {
 				    + SERVICES[service].name + ' account. The error message was:\n\n"' 
 				    + response.responseText + '"';
 			}
-			alert(notice);
+			console.log('Get all bookmarks failure:', notice);
+			// alert(notice);
+			var lb = localStorage.getItem('bookmarks');
+			bookmarks = lb ? JSON.parse(lb) : [];
 		};
 	}
 	getAllCallTime = new Date().getTime();
@@ -483,7 +474,8 @@ function getNewBookmarks(since, callback) {
 			    + SERVICES[se.settings.service].name + ' account. The error message was:\n\n"' 
 			    + response.responseText + '"';
 		}
-		alert(notice);
+		console.log('Get new bookmarks failure:', notice);
+		// alert(notice);
 	};
 	doXHR('GET', SERVICES[se.settings.service].endpoints['getAllBookmarks'], xhrData, null, successHandler, errorHandler);
 }
@@ -1217,7 +1209,7 @@ function initializeSettings() {
 			se.settings.service = 'local';
 		}
 	}
-	se.settings.lastVersion = 2200;
+	se.settings.lastVersion = 2215;
 }
 
 const SERVICES = {
@@ -1294,7 +1286,6 @@ var se = safari.extension;
 var a = document.createElement('a');
 var div = document.createElement('div');
 var waitTimers = [];
-// var waitingButton = null;
 var updateTime = null;
 var lastUpdateCheckTime = 0;
 var getAllCallTime = localStorage.getItem('getAllCallTime') * 1;

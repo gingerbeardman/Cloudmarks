@@ -5,7 +5,7 @@
 	<key>Author</key>
 	<string>Canisbos Computing</string>
 	<key>Builder Version</key>
-	<string>10601.1.39.0.2</string>
+	<string>11601.2.7.2</string>
 	<key>CFBundleDisplayName</key>
 	<string>Cloudmarks</string>
 	<key>CFBundleIdentifier</key>
@@ -13,9 +13,9 @@
 	<key>CFBundleInfoDictionaryVersion</key>
 	<string>6.0</string>
 	<key>CFBundleShortVersionString</key>
-	<string>2.2.14</string>
+	<string>2.2.15</string>
 	<key>CFBundleVersion</key>
-	<string>2214</string>
+	<string>2215</string>
 	<key>Chrome</key>
 	<dict>
 		<key>Global Page</key>
