@@ -1,0 +1,75 @@
+<p>
+	<strong><a href="https://github.com/canisbos/Cloudmarks/blob/master/dist/Cloudmarks.safariextz?raw=true">Download Cloudmarks</a></strong></p>
+<p>
+	Cloudmarks (formerly Moofmarks) is a Safari extension that works with cloud bookmarking services <a href="http://pinboard.in/" target="_blank">Pinboard</a>, <a href="http://www.delicious.com/" target="_blank">Delicious</a>, and <a href="https://kippt.com/" target="_blank">Kippt</a>. Cloudmarks lets you access your cloud bookmarks in a convenient popover window without interrupting your browsing.</p>
+<p class="screenshot">
+	<img alt="screenshot" src="https://dl.dropbox.com/u/23990/Canisbos/Cloudmarks/screenshot.png"></p>
+<p>
+	When you click Cloudmarks's toolbar button or type the configurable hotkey (⌘J by default), a search bar appears in a popover (Safari 5.1 or higher) or an iframed popup on top of the current page (Safari 5.0.x). At first, it shows a few of your most recently added bookmarks. Start typing a search term, and all matching bookmarks appear in a list under the search bar. To narrow down the list of matches, keep typing.</p>
+<p>
+	To open a bookmark, first highlight it by pressing either the down arrow key or the tab key as many times as necessary. (Cloudmarks auto-highlights the top match for you.) Then press Enter to open the bookmark in the current tab, ⌘-Enter to open it in a new foreground tab, or ⌘-Shift-Enter to open it in a new background tab.</p>
+<p>
+	You can also use Cloudmarks to add a bookmark to any or all of the supported services. While the popover or popup is open, click the plus (+) icon at the top right corner. The view will switch to a form, which will be pre-populated with the current page's title, URL, and description (if any). Click Submit to send the bookmark to your bookmarking service(s). You can specify which services to send new bookmarks to in Cloudmarks's settings (click the gear icon in the main view).</p>
+<p class="screenshot">
+	<img alt="screenshot" src="https://dl.dropbox.com/u/23990/Canisbos/Cloudmarks/screenshot-add.png"></p>
+
+<h4>Tips</h4>
+<p>
+	Normally, when you type something in the search bar, Cloudmarks searches for matches in all of the properties of your bookmarks: titles, descriptions, URLs, and tags. However, by using one of a few special modifiers in front of a search term, you can restrict the scope of that term to just one property. For example, to search for the word "blog" in just the URLs of your bookmarks, use "u:blog" or "u/blog" as the search term. (Either a colon or a slash is acceptable.)</p>
+<p>
+	Currently, the following search modifiers are supported:</p>
+
+<table class="mytable mono">
+	<tr><th>Modifier</th><th>Meaning</th></tr>
+	<tr><td class="centered">n/</td><td>Match only names (titles)</td></tr>
+	<tr><td class="centered">d/</td><td>Match only descriptions</td></tr>
+	<tr><td class="centered">t/</td><td>Match only tags</td></tr>
+	<tr><td class="centered">u/</td><td>Match only URLs</td></tr>
+</table>
+
+<h4>FAQ</h4>
+<dl>
+	<dt>
+		I'm trying to use Cloudmarks with my Delicious account, and it's just not working. What's wrong?</dt>
+	<dd>
+		You probably log in to your Delicious account with a Yahoo ID. In that case, Cloudmarks won't work for you because it doesn't support the OAuth authentication system Yahoo requires; I'm sorry. Please consider moving your Delicious bookmarks to a non-Yahoo account. You can do that using <a href="https://secure.delicious.com/settings/optin" target="_blank">this link</a>.</dd>
+	<dt>
+		I changed my Pinboard, Delicious, or Kippt password, and now Cloudmarks can't log in. What do I do?</dt>
+	<dd>
+		<p>That depends. If you let Safari save your account info for Cloudmarks, you will need to edit the saved password in your login keychain. Here's how to do that:</p>
+		<ol style="margin-bottom: 1em; font-size: 90%">
+			<li>Launch the Keychain Access application. (You can find it using Spotlight.)</li>
+			<li>In the <strong>Keychains</strong> pane of the app's window, make sure the "login" keychain is selected.</li>
+			<li>In the <strong>Category</strong> pane, select <strong>Passwords</strong>.</li>
+			<li>In the search field (at the right end of the title bar), type "pinboard".</li>
+			<li>You should see an item named "api.pinboard.in" followed by your username in parentheses. Double-click this item.</li>
+			<li>In the resulting window, click the <strong>Show password</strong> check box and enter your login password to allow Keychain Access to show the password.</li>
+			<li>Type your new password in the field, and then click <strong>Save Changes</strong>.</li>
+		</ol>
+		<p>If you never did let Safari save your account info for Cloudmarks, you can just quit Safari, and it will prompt you for the login info the next you use Cloudmarks.</p>
+	</dd>
+	<dt>
+		Do I have to log in to the bookmarking service for Cloudmarks to work?</dt>
+	<dd>
+		Sort of, depending on which service you use. For Pinboard or Delicious, the first time you open Cloudmarks, Safari will prompt you for your service username and password. If you tick the appropriate checkbox, Safari will remember your login info; otherwise, you'll have to reenter it each time you restart Safari. For Kippt, if you're already logged in, Cloudmarks will use your saved login; if not, it will prompt you for your Kippt username and password.</dd>
+	<dt>
+		Does Cloudmarks update its bookmarks when I add, edit, or remove bookmarks on the bookmarking service?</dt>
+	<dd>
+		Yes: if there have been any changes since the last time you opened Cloudmarks, Cloudmarks will re-download your bookmarks. If auto-updating doesn't work for any reason, you can force Cloudmarks to reload your bookmarks by clicking the reload button on the search bar.</dd>
+	<dt>
+		Where does Cloudmarks store my bookmarks?</dt>
+	<dd>
+		Cloudmarks caches downloaded bookmarks in the file ~/Library/Safari/LocalStorage/safari-extension_com.canisbos.moofmarks-zanvztser6_0.localstorage.</dd>
+	<dt>
+		What if I have thousands or millions of bookmarks? Won't that eat up a lot of RAM or make Cloudmarks too slow to use?</dt>
+	<dd>
+		I hope not. I don't know, because I only have a very modest collection of about 400 bookmarks in the cloud. I have absolutely no doubt that some users have many thousands. If you're one of them, let me know how Cloudmarks works for you, okay?</dd>
+	<dt>
+		How do I change the hotkey?</dt>
+	<dd>
+		You can change it in Cloudmarks's settings window (click the Settings button on the Cloudmarks search bar). Just click in the hotkey box and press the desired hotkey. If you can't open Moofmark's settings window because the current hotkey is unusable, you can change it in Safari's extension manager (in the Preferences dialog box). Here, you click inside the hotkey box and type the hotkey you want to use. You can use letters, numbers, and symbols, with or without the Shift and/or Option key. (If you want to include the Command key, don't type it. Type the hotkey without Command, and then put a check mark in the "Use ⌘ key" checkbox.) Close the extension manager to enable the new hotkey.</dd>
+</dl>
+<p>
+	<strong><a href="https://github.com/canisbos/Cloudmarks/blob/master/dist/Cloudmarks.safariextz?raw=true">Download Cloudmarks</a></strong></p>
+<p style="text-align: center;">
+	<span style="font-size: 11px;">2012 Canisbos Computing</span><br /><a rel="license" href="http://creativecommons.org/licenses/by-nc/3.0/"><img style="border-width: 0;" src="http://creativecommons.org/images/public/somerights20.png" alt="Creative Commons License" /></a></p>
